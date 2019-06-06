@@ -45,9 +45,9 @@ class App extends React.Component {
     }
   }
 
-  handlePokemonButtonClick() {
+  async handlePokemonButtonClick() {
     // TODO: fetch random pokemon
-    const result = fetchPokemon();
+    const result = await fetchPokemon();
     this.updatePokemon(result);
   }
 

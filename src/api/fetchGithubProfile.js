@@ -1,10 +1,4 @@
-const extractOrThrow = response => {
-  if (response.ok) {
-    return response.json();
-  } else {
-    throw new Error(response.statusText);
-  }
-};
+import extractOrThrow from './extractOrThrow'
 
 const fetchGithubProfile = async profile => {
   let response = await fetch(`https://api.github.com/users/${profile}`);
