@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import React from "react";
-import { jsx, css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { Fragment, useState } from "react";
+import { css } from "@emotion/react";
 
 import fetchGithubProfile from "./api/fetchGithubProfile";
 import fetchPokemon from "./api/fetchPokemon";
@@ -15,76 +15,51 @@ const mainContainer = css`
   max-width: 42em;
 `;
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [pokemon, updatePokemon] = useState({
+    name: "",
+  });
+  const [githubUser, updateGithubUser] = useState({
+    login: "",
+  });
+  const [formError, updateFormError] = useState();
 
-    this.state = {
-      formError: null,
-      githubUser: {
-        login: ""
-      },
-      pokemon: {
-        name: ""
-      }
-    };
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handlePokemonButtonClick = this.handlePokemonButtonClick.bind(this);
-    this.updateGithubUser = this.updateGithubUser.bind(this);
-  }
-
-  async handleFormSubmit(event) {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const result = await fetchGithubProfile(event.target.githubUser.value);
-      this.updateGithubUser(result);
+      updateGithubUser(result);
     } catch (err) {
-      this.updateFormError(err.message);
+      updateFormError("User not found.");
     }
   }
 
-  async handlePokemonButtonClick() {
+  const handlePokemonButtonClick = async () => {
     // TODO: fetch random pokemon
     const result = await fetchPokemon();
-    this.updatePokemon(result);
+    updatePokemon(result);
   }
 
-  updateFormError(formError) {
-    this.setState(() => ({ formError }));
-  }
-
-  updateGithubUser(githubUser) {
-    this.setState(() => ({ githubUser }));
-  }
-
-  updatePokemon(pokemon) {
-    this.setState(() => ({ pokemon }));
-  }
-
-  render() {
-    const { formError, githubUser, pokemon } = this.state;
-    return (
-      <React.Fragment>
-        <GlobalStyles />
-        <div css={mainContainer}>
-          <header>
-            <h1>Github vs. Pokemon</h1>
-          </header>
-          <GithubSearch
-            handleFormSubmit={this.handleFormSubmit}
-            formError={formError}
-          />
-          <Arena
-            githubUser={githubUser}
-            pokemon={pokemon}
-            handlePokemonButtonClick={this.handlePokemonButtonClick}
-          />
-        </div>
-      </React.Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <GlobalStyles />
+      <div css={mainContainer}>
+        <header>
+          <h1>Github vs. Pokemon</h1>
+        </header>
+        <GithubSearch
+          handleFormSubmit={handleFormSubmit}
+          formError={formError}
+        />
+        <Arena
+          githubUser={githubUser}
+          pokemon={pokemon}
+          handlePokemonButtonClick={handlePokemonButtonClick}
+        />
+      </div>
+    </Fragment>
+  );
 }
 
 export default App;

@@ -1,5 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import React from "react";
+import { css } from "@emotion/react";
 
 const alignRight = css`
   text-align: right;
