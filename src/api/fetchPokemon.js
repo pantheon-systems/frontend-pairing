@@ -1,6 +1,5 @@
 import keyBy from "lodash/keyBy";
 
-// TODO: implement API fetch
 // truncated example fixture from: https://pokeapi.co/api/v2/pokemon/1/
 const pokemonFixture = {
   name: "bulbasaur",
@@ -47,7 +46,6 @@ const keyStats = pokemon => {
   };
 };
 
-// TODO: fetch pokemon
 // https://pokeapi.co/api/v2/pokemon/
 const fetchPokemon = () => {
   const normalizedResponse = keyStats(pokemonFixture);

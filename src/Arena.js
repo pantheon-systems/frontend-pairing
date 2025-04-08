@@ -12,7 +12,6 @@ const resetHeading = css`
   margin-bottom: 0;
 `;
 
-// TODO: Implement fight script
 const Arena = ({ githubUser, handlePokemonButtonClick, pokemon }) => {
   const hasGithubUser = githubUser.login.length > 0;
   const hasPokemon = pokemon.name.length > 0;

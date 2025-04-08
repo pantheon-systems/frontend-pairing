@@ -36,7 +36,6 @@ const App = () => {
   }
 
   const handlePokemonButtonClick = async () => {
-    // TODO: fetch random pokemon
     const result = await fetchPokemon();
     updatePokemon(result);
   }
